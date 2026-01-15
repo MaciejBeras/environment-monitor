@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -32,7 +33,11 @@ public class Reading {
 
   @PrePersist
   protected void onCreate() {
-    this.timestamp = LocalDateTime.now();
+    this.timestamp = LocalDateTime.now(ZoneId.of("UTC"));
+
+    //long timestamp =
+    //System.currentTimeMillis();
+    // klasa instant.now
 
   }
 }
