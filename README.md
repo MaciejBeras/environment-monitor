@@ -1,44 +1,59 @@
-# Environment Monitor
+# Environmental Monitoring Station (IoT)
 
-Environment Monitor is a simple Spring Boot application for collecting and managing environmental readings.
-It allows adding measurements (e.g. temperature/humidity), browsing saved records and exporting data to XML.
-
-The project was created as a learning / portfolio application focused on building a clean REST + service layer structure in Java.
+A compact IoT project for monitoring environmental conditions (temperature, humidity, pressure) using an ESP8266 and a Spring Boot backend. Sensor data is stored in MySQL and visualized on a real-time web dashboard.
 
 ---
 
-## 🚀 Features
+## Architecture
 
-- Add new environmental readings
-- Browse saved readings (REST + basic view layer)
-- Export readings to XML
-- Layered structure: controller → service → repository → model
+BME280 → ESP8266 (Wemos D1 Mini) → Spring Boot REST API → MySQL → Web Dashboard
 
 ---
 
-## 🛠 Tech stack
+## Tech Stack
 
-- Java
-- Spring Boot
-- Spring Web
-- Spring Data (Repository layer)
-- Maven
-
----
-
-## 📦 Requirements
-
-- Java 17+ (recommended)
-- Maven  
-  *(or Maven Wrapper if available in the repo)*
+- Hardware: ESP8266 (Wemos D1 Mini), BME280
+- Backend: Java 17, Spring Boot, Spring Data JPA, MySQL
+- Frontend: JSP, Chart.js (zoom/pan)
+- Other: JAXB (XML export)
 
 ---
 
-## ▶️ Run locally
+## Features
 
-Clone repository:
+- HTTP JSON ingestion from ESP8266
+- Persistent storage in MySQL
+- Dashboard with:
+  - current temperature, humidity, pressure
+  - 6-hour line chart
+  - auto refresh (10s)
+  - zoom & pan
+- UTC timestamps with frontend timezone conversion
+- XML data export
 
-```bash
-git clone https://github.com/MaciejBeras/environment-monitor.git
-cd environment-monitor
+---
+
+## Run
+
+Start the backend with: mvn spring-boot:run  
+Dashboard: http://localhost:8080
+
+---
+
+## ESP8266
+
+Sends measurements every 5 minutes as JSON: { "temperature": 24.6, "humidity": 55.2, "pressure": 1013.4 }  
+Endpoint: POST /api/readings
+
+---
+
+## Export
+
+GET /api/readings/export/xml
+
+---
+
+## Author
+
+Engineering portfolio project focused on IoT and Java backend development.
 
